@@ -13,4 +13,10 @@ public class UnitTest1
     Assert.True(result.IsSuccessStatusCode);
     Assert.NotEmpty(stringContent);
   }
+
+  [Fact]
+  public void Test2()
+  {
+    Assert.True(false);
+  }
 }
