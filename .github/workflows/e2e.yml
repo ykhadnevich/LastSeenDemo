@@ -22,7 +22,6 @@ jobs:
     - name: Publish
       run: dotnet publish -o out
     - name: Run
-      run: dotnet out/LastSeenDemo
+      run: dotnet out/LastSeenDemo.API.dll
     - name: Test
-      run: |
-        cd out
+      run: dotnet test LastSeenDemo.E2E.ForPython/LastSeenDemo.E2E.ForPython.csproj
