@@ -22,6 +22,7 @@ jobs:
     - name: Publish
       run: dotnet publish -o out
     - name: Run
-      run: dotnet out/LastSeenDemo.API.dll
-    - name: Test
-      run: dotnet test LastSeenDemo.E2E.ForPython/LastSeenDemo.E2E.ForPython.csproj
+      run: |
+        dotnet out/LastSeenDemo.API.dll --urls=http://localhost:5081 &
+        sleep 20s &
+        dotnet test LastSeenDemo.E2E.ForPython/LastSeenDemo.E2E.ForPython.csproj
