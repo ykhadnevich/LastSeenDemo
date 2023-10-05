@@ -24,4 +24,6 @@ jobs:
     - name: Run
       run: dotnet out/LastSeenDemo
     - name: Test
-      run: dotnet out/LastSeenDemo.API.dll --urls=http://localhost:5081/
+      run: |
+        cd out
+        dotnet LastSeenDemo.API.dll --urls=http://localhost:5081/
