@@ -24,5 +24,7 @@ jobs:
     - name: Run
       run: |
         dotnet out/LastSeenDemo.API.dll --urls=http://localhost:5081 &
-        sleep 20s &
+        while ! nc -z localhost 8080; do sleep 1; done &
+        echo "API is up" &
+        echo "===========================" &
         dotnet test LastSeenDemo.E2E.ForPython/LastSeenDemo.E2E.ForPython.csproj
