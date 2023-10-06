@@ -13,7 +13,7 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  python-e2e:
 
     runs-on: ubuntu-latest
 
@@ -23,7 +23,7 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: "3.10"
-    - name: Install dependencies
+    - name: Run E2E tests for Pyhton
       run: |
         cd python
         python -m pip install --upgrade pip
