@@ -12,7 +12,7 @@ def read_root():
     return fetch_all_data(base_url)
 
 
-@app.get("/formated")
+@app.get("/formatted")
 def read_item():
     return format_all_data(fetch_all_data(base_url))
 
