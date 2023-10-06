@@ -28,3 +28,9 @@ jobs:
         cd python
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        python -m uvicorn main:app --reload &
+        while ! nc -z localhost 8000; do sleep 1; done &
+        echo "API is up" &
+        echo "===========================" &
+        cd ..
+        dotnet test LastSeenDemo.E2E.ForPython
