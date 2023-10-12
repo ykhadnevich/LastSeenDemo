@@ -3,12 +3,12 @@ Description=ASP.NET Core web template
 
 [Service]
 # will set the Current Working Directory (CWD)
-WorkingDirectory=/srv/AspNetSite
+WorkingDirectory=/server/LastSeenDemo/.out
 # systemd will run this executable to start the service
 # if /usr/bin/dotnet doesn't work, use `which dotnet` to find correct dotnet executable path
-ExecStart=/usr/bin/dotnet /root/LastSeenDemo/LastSeenDemo.API/bin/Debug/net7.0/LastSeenDemo.API.dll
+ExecStart=/usr/bin/dotnet /server/LastSeenDemo/.out/LastSeenDemo.API.dll --urls=http://[::]/
 # to query logs using journalctl, set a logical name here  
-SyslogIdentifier=AspNetSite
+SyslogIdentifier=LastSeenDemo
 
 # Use your username to keep things simple, for production scenario's I recommend a dedicated user/group.
 # If you pick a different user, make sure dotnet and all permissions are set correctly to run the app.
