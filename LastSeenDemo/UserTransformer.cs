@@ -2,15 +2,15 @@
 
 public interface IDateTimeProvider
 {
-  public DateTime GetCurrentTime();
+  public DateTimeOffset GetCurrentTime();
 }
 
 public class DateTimeProvider : IDateTimeProvider
 {
 
-  public DateTime GetCurrentTime()
+  public DateTimeOffset GetCurrentTime()
   {
-    return DateTime.Now;
+    return DateTimeOffset.UtcNow;
   }
 }
 
@@ -44,7 +44,7 @@ public class UserTransformer : IUserTransformer
     {
       if (stateOfUserInCurrentTime.IsOnline)
       {
-        userTimeSpans.Add(new UserTimeSpan() { Login = _dateTimeProvider.GetCurrentTime(), Logout =  _dateTimeProvider.GetCurrentTime() });
+        userTimeSpans.Add(new UserTimeSpan() { Login = _dateTimeProvider.GetCurrentTime(), Logout = null });
       }
     }
   } 

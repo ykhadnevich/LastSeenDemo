@@ -3,7 +3,7 @@
 public class UserTimeSpan
 {
   public DateTimeOffset Login { get; set; }
-  public DateTimeOffset Logout { get; set; }
+  public DateTimeOffset? Logout { get; set; }
 }
 
 public class Worker
@@ -21,8 +21,6 @@ public class Worker
   
   public void LoadDataPeriodically()
   {
-    List<User[]> users = new();
-    
     List<Guid> onlineUsers = new();
     
     while (true)

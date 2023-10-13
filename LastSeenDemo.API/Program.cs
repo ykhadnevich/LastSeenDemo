@@ -17,7 +17,7 @@ var worker = new Worker(
 
 Task.Run(worker.LoadDataPeriodically);
 
-app.MapGet("/api/stats/users/", (DateTime date) =>
+app.MapGet("/api/stats/users/", (DateTimeOffset date) =>
 {
   var detector = new OnlineDetector();
   // int usersOnline = 0;
@@ -33,18 +33,3 @@ app.MapGet("/api/stats/users/", (DateTime date) =>
 });
 
 app.Run();
-
-class OnlineDetector
-{
-  public bool Detect(List<UserTimeSpan> data, DateTime date)
-  {
-    foreach (var interval in data)
-    {
-      if (interval.Login >= date && interval.Logout <= date)
-      {
-        return true;
-      }
-    }
-    return false;
-  }
-}

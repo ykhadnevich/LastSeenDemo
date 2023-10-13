@@ -8,7 +8,7 @@ class MockDateTimeProvider : IDateTimeProvider
     _dateTime = dateTime;
   }
   
-  public DateTime GetCurrentTime()
+  public DateTimeOffset GetCurrentTime()
   {
     return _dateTime;
   }
