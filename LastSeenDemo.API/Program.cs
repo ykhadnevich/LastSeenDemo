@@ -21,11 +21,15 @@ builder.Services.AddSwaggerGen();
 
 // APIs
 var app = builder.Build();
+
 app.MapGet("/", () => "Hello World!"); // Just Demo Endpoint
 
 Setup2ndAssignmentsEndpoints();
 Setup3rdAssignmentsEndpoints();
 Setup4thAssignmentsEndpoints();
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.Run();
 
