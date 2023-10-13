@@ -1,6 +1,17 @@
 using LastSeenDemo;
 
-public class OnlineDetector
+public interface IOnlineDetector
+{
+  bool Detect(List<UserTimeSpan> data, DateTimeOffset date);
+  DateTimeOffset? GetClosestOnlineTime(List<UserTimeSpan> data, DateTimeOffset date);
+  int CountOnline(Dictionary<Guid, List<UserTimeSpan>> users, DateTimeOffset date);
+  double CalculateTotalTimeForUser(List<UserTimeSpan> value);
+  double CalculateTotalTimeForUser(List<UserTimeSpan> value, DateTimeOffset from, DateTimeOffset to);
+  double CalculateDailyAverageForUser(List<UserTimeSpan> user);
+  double CalculateWeeklyAverageForUser(List<UserTimeSpan> user);
+}
+
+public class OnlineDetector : IOnlineDetector
 {
   private readonly IDateTimeProvider _dateTimeProvider;
   public OnlineDetector(IDateTimeProvider dateTimeProvider)
@@ -131,8 +142,8 @@ public class OnlineDetector
 
 public class Predictor
 {
-  private readonly OnlineDetector _detector;
-  public Predictor(OnlineDetector detector)
+  private readonly IOnlineDetector _detector;
+  public Predictor(IOnlineDetector detector)
   {
     _detector = detector;
   }

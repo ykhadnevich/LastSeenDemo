@@ -1,26 +1,13 @@
-﻿namespace LastSeenDemo.UnitTests;
+﻿using LastSeenDemo.UnitTests.Mocks;
 
-class MockDateTimeProvider : IDateTimeProvider
-{
-  private readonly DateTime _dateTime;
-  public MockDateTimeProvider(DateTime dateTime)
-  {
-    _dateTime = dateTime;
-  }
-  
-  public DateTimeOffset GetCurrentTime()
-  {
-    return _dateTime;
-  }
-}
+namespace LastSeenDemo.UnitTests;
 
 public class UserTransformerTests
 {
   [Fact]
   public void When_UserAppearedOnline_Should_AddUserToTheTimeSpansCollection()
   {
-    var mockDate = new DateTime(2000, 01, 31);
-    var mockDateTimeProvider = new MockDateTimeProvider(mockDate);
+    var mockDateTimeProvider = new MockDateTimeProvider();
     var transformer = new UserTransformer(mockDateTimeProvider);
     var id = Guid.NewGuid();
     var userTimeSpans = new List<UserTimeSpan>();
@@ -28,7 +15,7 @@ public class UserTransformerTests
     transformer.TransformSingleUser(new () { IsOnline = true, UserId = id }, false, userTimeSpans);
 
     Assert.Single(userTimeSpans);
-    Assert.Equal(mockDate, userTimeSpans.Single().Login);
+    Assert.Equal(MockDateTimeProvider.DefaultMockDate, userTimeSpans.Single().Login);
     Assert.Null(userTimeSpans.Single().Logout);
   }
   
