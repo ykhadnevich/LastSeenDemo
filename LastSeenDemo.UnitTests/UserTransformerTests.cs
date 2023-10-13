@@ -8,7 +8,7 @@ class MockDateTimeProvider : IDateTimeProvider
     _dateTime = dateTime;
   }
   
-  public DateTime GetCurrentTime()
+  public DateTimeOffset GetCurrentTime()
   {
     return _dateTime;
   }
@@ -29,7 +29,7 @@ public class UserTransformerTests
 
     Assert.Single(userTimeSpans);
     Assert.Equal(mockDate, userTimeSpans.Single().Login);
-    Assert.Equal(mockDate, userTimeSpans.Single().Logout);
+    Assert.Null(userTimeSpans.Single().Logout);
   }
   
   [Fact]
