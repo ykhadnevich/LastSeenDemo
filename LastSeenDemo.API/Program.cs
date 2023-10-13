@@ -16,6 +16,9 @@ Task.Run(worker.LoadDataPeriodically); // Launch collecting data in background
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 
 // APIs
 
