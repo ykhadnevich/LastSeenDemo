@@ -2,17 +2,16 @@
 
 public class LastSeenApplication
 {
-  private readonly ILoader _loader;
-  public LastSeenApplication(ILoader loader)
+  private readonly UserLoader _userLoader;
+  public LastSeenApplication(UserLoader userLoader)
   {
-    _loader = loader;
+    _userLoader = userLoader;
   }
 
 
   public List<string> Show(DateTimeOffset now)
   {
-    var userLoader = new UserLoader(_loader, "https://sef.podkolzin.consulting/api/users/lastSeen");
-    var users = userLoader.LoadAllUsers();
+    var users = _userLoader.LoadAllUsers();
     var format = new LastSeenFormatter();
 
     var result = new List<string>();

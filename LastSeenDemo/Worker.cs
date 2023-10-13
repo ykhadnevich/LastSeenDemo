@@ -10,6 +10,8 @@ public class Worker
 {
   private readonly UserLoader _loader;
   private readonly AllUsersTransformer _transformer;
+  private readonly List<Guid> _forgottenUsers = new();
+  
   public Worker(UserLoader loader, AllUsersTransformer transformer)
   {
     _loader = loader;
@@ -31,5 +33,10 @@ public class Worker
       Console.WriteLine("Data loaded");
       Thread.Sleep(5000);
     }
+  }
+  public void Forget(Guid userId)
+  {
+    _forgottenUsers.Add(userId);
+    Users.Remove(userId);
   }
 }
