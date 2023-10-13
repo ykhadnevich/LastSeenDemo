@@ -2,8 +2,9 @@
 
 using LastSeenDemo;
 
-var application = new LastSeenApplication(new Loader());
+var userLoader = new UserLoader(new Loader(), "https://sef.podkolzin.consulting/api/users/lastSeen");
+var application = new LastSeenApplication(userLoader);
 var result = application.Show(DateTimeOffset.Now);
 
-foreach(var item in result)
-  Console.WriteLine(item);
+foreach (var item in result)
+    Console.WriteLine(item);
