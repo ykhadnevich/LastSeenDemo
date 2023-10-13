@@ -82,7 +82,7 @@ void Setup3rdAssignmentsEndpoints()
         var onlineChance = predictor.PredictUserOnline(user, date);
         return Results.Json(new
         {
-            onlineUsers = onlineChance,
+            onlineChance,
             willBeOnline = onlineChance > tolerance
         });
     });
