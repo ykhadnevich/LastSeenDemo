@@ -8,7 +8,7 @@ public class AllUsersTransformer
     _transformer = transformer;
   }
   
-  public void Transform(User[] allUsers, List<Guid> onlineUsers, Dictionary<Guid,List<UserTimeSpan>> result)
+  public void Transform(IEnumerable<User> allUsers, List<Guid> onlineUsers, Dictionary<Guid,List<UserTimeSpan>> result)
   {
     foreach (var user in allUsers)
     {

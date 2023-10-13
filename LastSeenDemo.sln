@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LastSeenDemo.IntegrationTes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LastSeenDemo.API", "LastSeenDemo.API\LastSeenDemo.API.csproj", "{17E21935-3596-4CF5-98ED-DECADE72B939}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LastSeenDemo.E2E.ForPython", "LastSeenDemo.E2E.ForPython\LastSeenDemo.E2E.ForPython.csproj", "{661491A9-0910-420B-AA58-EF5436ED3A85}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LastSeenDemo.E2E", "LastSeenDemo.E2E\LastSeenDemo.E2E.csproj", "{C6725805-AE7D-4652-889D-A15D0CB31ACB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,9 +32,9 @@ Global
 		{17E21935-3596-4CF5-98ED-DECADE72B939}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17E21935-3596-4CF5-98ED-DECADE72B939}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17E21935-3596-4CF5-98ED-DECADE72B939}.Release|Any CPU.Build.0 = Release|Any CPU
-		{661491A9-0910-420B-AA58-EF5436ED3A85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{661491A9-0910-420B-AA58-EF5436ED3A85}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{661491A9-0910-420B-AA58-EF5436ED3A85}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{661491A9-0910-420B-AA58-EF5436ED3A85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6725805-AE7D-4652-889D-A15D0CB31ACB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6725805-AE7D-4652-889D-A15D0CB31ACB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6725805-AE7D-4652-889D-A15D0CB31ACB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6725805-AE7D-4652-889D-A15D0CB31ACB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

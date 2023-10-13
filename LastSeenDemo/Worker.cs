@@ -1,11 +1,5 @@
 ﻿namespace LastSeenDemo;
 
-public class UserTimeSpan
-{
-  public DateTimeOffset Login { get; set; }
-  public DateTimeOffset? Logout { get; set; }
-}
-
 public class Worker
 {
   private readonly UserLoader _loader;
@@ -20,23 +14,30 @@ public class Worker
   }
   
   public Dictionary<Guid, List<UserTimeSpan>> Users { get; }
+  public List<Guid> OnlineUsers { get; } = new();
   
   public void LoadDataPeriodically()
   {
-    List<Guid> onlineUsers = new();
-    
     while (true)
     {
       Console.WriteLine("Loading data");
-      var allUsers = _loader.LoadAllUsers();
-      _transformer.Transform(allUsers, onlineUsers, Users);
+      LoadDataIteration();
       Console.WriteLine("Data loaded");
       Thread.Sleep(5000);
     }
   }
+
+  public void LoadDataIteration()
+  {
+    var allUsers = _loader.LoadAllUsers().ToList();
+    allUsers.RemoveAll(x => _forgottenUsers.Contains(x.UserId));
+    _transformer.Transform(allUsers, OnlineUsers, Users);
+  }
+  
   public void Forget(Guid userId)
   {
     _forgottenUsers.Add(userId);
     Users.Remove(userId);
+    OnlineUsers.Remove(userId);
   }
 }
