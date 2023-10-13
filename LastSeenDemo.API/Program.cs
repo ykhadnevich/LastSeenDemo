@@ -75,7 +75,7 @@ void Setup3rdAssignmentsEndpoints()
     });
 
     // Feature#4 - Implement a prediction mechanism based on a historical data for concrete user
-    app.MapGet("/api/predictions/users", (Guid userId, DateTimeOffset date, float tolerance) =>
+    app.MapGet("/api/predictions/user", (Guid userId, DateTimeOffset date, float tolerance) =>
     {
         if (!worker.Users.TryGetValue(userId, out var user))
             return Results.NotFound(new { userId });
