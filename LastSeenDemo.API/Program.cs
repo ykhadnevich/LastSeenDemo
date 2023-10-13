@@ -15,13 +15,12 @@ var worker = new Worker(userLoader, allUsersTransformer);
 Task.Run(worker.LoadDataPeriodically); // Launch collecting data in background
 
 var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
 // APIs
-
+var app = builder.Build();
 app.MapGet("/", () => "Hello World!"); // Just Demo Endpoint
 
 Setup2ndAssignmentsEndpoints();
