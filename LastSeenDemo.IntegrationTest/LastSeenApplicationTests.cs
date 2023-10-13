@@ -4,14 +4,14 @@ namespace LastSeenDemo.IntegrationTest;
 
 public class LastSeenApplicationTests
 {
-  private readonly DateTimeOffset _now = new(2000, 01, 01, 00, 00, 00, TimeSpan.Zero);
+    private readonly DateTimeOffset _now = new(2000, 01, 01, 00, 00, 00, TimeSpan.Zero);
 
-  [Fact]
-  public void When_DataIsPresented_AllUsersLastSeenDate_Should_BeFormattedWell()
-  {
-    // Arrange
-    var mock = new LoaderMock(new[]
+    [Fact]
+    public void When_DataIsPresented_AllUsersLastSeenDate_Should_BeFormattedWell()
     {
+        // Arrange
+        var mock = new LoaderMock(new[]
+        {
       new Page()
       {
         Total = 3, Data = new[]
@@ -42,17 +42,17 @@ public class LastSeenApplicationTests
       new Page() { Total = 3, Data = Array.Empty<User>() }
     });
 
-    var allUsersLoader = new UserLoader(mock, "any");
-    var application = new LastSeenApplication(allUsersLoader);
+        var allUsersLoader = new UserLoader(mock, "any");
+        var application = new LastSeenApplication(allUsersLoader);
 
-    // Act
-    var result = application.Show(_now);
+        // Act
+        var result = application.Show(_now);
 
-    // Assert
-    Assert.Collection(result,
-      s => Assert.Equal("u1 Online", s),
-      s => Assert.Equal("u2 Couple of minutes ago", s),
-      s => Assert.Equal("u3 yesterday", s)
-    );
-  }
+        // Assert
+        Assert.Collection(result,
+          s => Assert.Equal("u1 Online", s),
+          s => Assert.Equal("u2 Couple of minutes ago", s),
+          s => Assert.Equal("u3 yesterday", s)
+        );
+    }
 }

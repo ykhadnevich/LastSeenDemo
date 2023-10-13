@@ -29,87 +29,87 @@ app.Run();
 
 void Setup2ndAssignmentsEndpoints()
 {
-  app.MapGet("/formatted", () => application.Show(DateTimeOffset.Now)); // Assignment#2 in API form
+    app.MapGet("/formatted", () => application.Show(DateTimeOffset.Now)); // Assignment#2 in API form
 }
 
 void Setup3rdAssignmentsEndpoints()
 {
-  // Feature#1 - Implement endpoint that returns historical data for all users
-  app.MapGet("/api/stats/users/", (DateTimeOffset date) =>
-  {
-    // int usersOnline = 0;
-    // foreach (var (_, user) in users)
-    // {
-    //   if (detector.Detect(user, date))
-    //   {
-    //     usersOnline++;
-    //   }
-    // }
-    // return new { usersOnline };
-    return new { usersOnline = detector.CountOnline(worker.Users, date) };
-  });
-  
-  // Feature#2 - Implement endpoint that returns historical data for a concrete user
-  app.MapGet("/api/stats/user", (DateTimeOffset date, Guid userId) =>
-  {
-    if (!worker.Users.ContainsKey(userId))
-      return Results.NotFound(new { userId });
-    var user = worker.Users[userId];
-    return Results.Json(new
+    // Feature#1 - Implement endpoint that returns historical data for all users
+    app.MapGet("/api/stats/users/", (DateTimeOffset date) =>
     {
-      wasUserOnline = detector.Detect(user, date), 
-      nearestOnlineTime = detector.GetClosestOnlineTime(user, date)
+        // int usersOnline = 0;
+        // foreach (var (_, user) in users)
+        // {
+        //   if (detector.Detect(user, date))
+        //   {
+        //     usersOnline++;
+        //   }
+        // }
+        // return new { usersOnline };
+        return new { usersOnline = detector.CountOnline(worker.Users, date) };
     });
-  });
-  
-  // Feature#3 - Implement endpoint that returns historical data for a concrete user
-  app.MapGet("/api/predictions/users", (DateTimeOffset date) =>
-  {
-    return new { onlineUsers = predictor.PredictUsersOnline(worker.Users, date) };
-  });
-  
-  // Feature#4 - Implement a prediction mechanism based on a historical data for concrete user
-  app.MapGet("/api/predictions/users", (Guid userId, DateTimeOffset date, float tolerance) =>
-  {
-    if (!worker.Users.TryGetValue(userId, out var user))
-      return Results.NotFound(new { userId });
-    var onlineChance = predictor.PredictUserOnline(user, date);
-    return Results.Json(new
+
+    // Feature#2 - Implement endpoint that returns historical data for a concrete user
+    app.MapGet("/api/stats/user", (DateTimeOffset date, Guid userId) =>
     {
-      onlineUsers = onlineChance, 
-      willBeOnline = onlineChance > tolerance
+        if (!worker.Users.ContainsKey(userId))
+            return Results.NotFound(new { userId });
+        var user = worker.Users[userId];
+        return Results.Json(new
+        {
+            wasUserOnline = detector.Detect(user, date),
+            nearestOnlineTime = detector.GetClosestOnlineTime(user, date)
+        });
     });
-  });
+
+    // Feature#3 - Implement endpoint that returns historical data for a concrete user
+    app.MapGet("/api/predictions/users", (DateTimeOffset date) =>
+    {
+        return new { onlineUsers = predictor.PredictUsersOnline(worker.Users, date) };
+    });
+
+    // Feature#4 - Implement a prediction mechanism based on a historical data for concrete user
+    app.MapGet("/api/predictions/users", (Guid userId, DateTimeOffset date, float tolerance) =>
+    {
+        if (!worker.Users.TryGetValue(userId, out var user))
+            return Results.NotFound(new { userId });
+        var onlineChance = predictor.PredictUserOnline(user, date);
+        return Results.Json(new
+        {
+            onlineUsers = onlineChance,
+            willBeOnline = onlineChance > tolerance
+        });
+    });
 }
 
 void Setup4thAssignmentsEndpoints()
 {
-  // Feature#1 - Implement an endpoint that returns total time that user was online
-  app.MapGet("/api/stats/user/total", (Guid userId) =>
-  {
-    if (!worker.Users.TryGetValue(userId, out var user))
-      return Results.NotFound(new { userId });
-    return Results.Json(new { totalTime = detector.CalculateTotalTimeForUser(user)});
-  });
-  
-  // Feature#2 - Implement endpoints that returns average daily/weekly time for the specified user
-  app.MapGet("/api/stats/user/average", (Guid userId) =>
-  {
-    if (!worker.Users.TryGetValue(userId, out var user))
-      return Results.NotFound(new { userId });
-    return Results.Json(new
+    // Feature#1 - Implement an endpoint that returns total time that user was online
+    app.MapGet("/api/stats/user/total", (Guid userId) =>
     {
-      dailyAverage = detector.CalculateDailyAverageForUser(user),
-      weeklyAverage = detector.CalculateWeeklyAverageForUser(user),
+        if (!worker.Users.TryGetValue(userId, out var user))
+            return Results.NotFound(new { userId });
+        return Results.Json(new { totalTime = detector.CalculateTotalTimeForUser(user) });
     });
-  });
-  
-  // Feature#3 - Implement endpoint to follow the EU regulator rules - GDPR - right to be forgotten
-  app.MapPost("/api/user/forget", (Guid userId) =>
-  {
-    if (!worker.Users.ContainsKey(userId))
-      return Results.NotFound(new { userId });
-    worker.Forget(userId);
-    return Results.Ok();
-  });
+
+    // Feature#2 - Implement endpoints that returns average daily/weekly time for the specified user
+    app.MapGet("/api/stats/user/average", (Guid userId) =>
+    {
+        if (!worker.Users.TryGetValue(userId, out var user))
+            return Results.NotFound(new { userId });
+        return Results.Json(new
+        {
+            dailyAverage = detector.CalculateDailyAverageForUser(user),
+            weeklyAverage = detector.CalculateWeeklyAverageForUser(user),
+        });
+    });
+
+    // Feature#3 - Implement endpoint to follow the EU regulator rules - GDPR - right to be forgotten
+    app.MapPost("/api/user/forget", (Guid userId) =>
+    {
+        if (!worker.Users.ContainsKey(userId))
+            return Results.NotFound(new { userId });
+        worker.Forget(userId);
+        return Results.Ok();
+    });
 }

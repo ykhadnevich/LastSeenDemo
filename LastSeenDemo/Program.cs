@@ -6,5 +6,5 @@ var userLoader = new UserLoader(new Loader(), "https://sef.podkolzin.consulting/
 var application = new LastSeenApplication(userLoader);
 var result = application.Show(DateTimeOffset.Now);
 
-foreach(var item in result)
-  Console.WriteLine(item);
+foreach (var item in result)
+    Console.WriteLine(item);
