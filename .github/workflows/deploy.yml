@@ -34,3 +34,5 @@ jobs:
               run: scp -o StrictHostKeyChecking=no -i deploy_key -r .out $SSH_USERNAME@$VM_IP:/server/LastSeenDemo/.out
             - name: Start the server
               run: ssh -o StrictHostKeyChecking=no -i deploy_key $SSH_USERNAME@$VM_IP "service LastSeenApp start"
+            - name: Start the server
+              run: ssh -o StrictHostKeyChecking=no -i deploy_key $SSH_USERNAME@$VM_IP "service LastSeenApp status"
