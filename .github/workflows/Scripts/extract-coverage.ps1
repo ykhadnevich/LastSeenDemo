@@ -1,5 +1,5 @@
 param(
-    [string]$coverageThreshold = "70",
+    [string]$coverageThreshold = "0.7",
     [string]$coverageXml = "merged.cobertura.xml"
 )
 
