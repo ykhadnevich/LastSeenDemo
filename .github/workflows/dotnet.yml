@@ -41,3 +41,29 @@ jobs:
       with:
             name: coverage-artifacts
             path: coveragereport/
+
+
+    - name: Calculate Code Coverage Percentage
+      run: |
+          coverageThreshold=70
+          coverageXml="merged.cobertura.xml"
+          if [[ -f "$coverageXml" ]]; then
+            actualCoverage=$(xmllint --xpath "string(/coverage/@line-rate)" $coverageXml)
+            if (( $(bc <<< "$actualCoverage < $coverageThreshold") )); then
+              echo "Code coverage is below the threshold. Coverage: $actualCoverage%"
+              exit 1
+            fi
+            echo "Code coverage is within the threshold. Coverage: $actualCoverage%"
+          else
+            echo "Code coverage file not found."
+            exit 1
+          fi
+      env:
+          COVERAGE_THRESHOLD: $coverageThreshold
+
+    - name: Set PR status
+      if: failure()
+      uses: softprops/action-gh-release@v0
+      with:
+          files: coverage/*
+          token: ${{ secrets.GITHUB_TOKEN }}
