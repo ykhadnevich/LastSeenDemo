@@ -44,6 +44,6 @@ jobs:
 
     - name: Calculate Code Coverage Percentage with PowerShell
       shell: pwsh
-      run:  .\extract-coverage.ps1
+      run: ${{ env.Scripts }}/extract-coverage.ps1
       env:
           COVERAGE_THRESHOLD: $coverageThreshold
