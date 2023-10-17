@@ -32,6 +32,7 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.Run();
+app.MapGet("/version", () => 1);
 
 void Setup2ndAssignmentsEndpoints()
 {
