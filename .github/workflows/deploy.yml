@@ -34,5 +34,13 @@ jobs:
               run: scp -o StrictHostKeyChecking=no -i deploy_key -r .out $SSH_USERNAME@$VM_IP:/server/LastSeenDemo/.out
             - name: Start the server
               run: ssh -o StrictHostKeyChecking=no -i deploy_key $SSH_USERNAME@$VM_IP "service LastSeenApp start"
-            - name: Start the server
-              run: ssh -o StrictHostKeyChecking=no -i deploy_key $SSH_USERNAME@$VM_IP "service LastSeenApp status"
+            - name: Upload build artifacts
+              uses: actions/upload-artifact@v2
+              with:
+                name: build
+                path: .out/
+            - name: Run E2E On Production
+              run: |
+                    echo "Running E2E on production"
+                    echo "==========================="
+                    dotnet test LastSeenDemo.E2E

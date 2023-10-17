@@ -2,6 +2,8 @@
 
 public static class Configuration
 {
-    public const string
-      BaseUrl = "http://127.0.0.1:5079";
+    private const string DefaultUrl = "http://127.0.0.1:5079";
+    
+    public static string
+      BaseUrl => Environment.GetEnvironmentVariable("VM_IP") ?? DefaultUrl;
 }

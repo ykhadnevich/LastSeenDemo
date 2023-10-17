@@ -1,3 +1,4 @@
+using System.Reflection;
 using LastSeenDemo;
 
 // Global Application Services
@@ -23,6 +24,12 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!"); // Just Demo Endpoint
+app.MapGet("/version", () => new
+{
+    Version = 1,
+    Assembly = Assembly.GetAssembly(typeof(Program)).Location,
+    Modified = File.GetLastWriteTime(Assembly.GetAssembly(typeof(Program)).Location)
+});
 
 Setup2ndAssignmentsEndpoints();
 Setup3rdAssignmentsEndpoints();
@@ -32,7 +39,7 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.Run();
-app.MapGet("/version", () => 1);
+
 
 void Setup2ndAssignmentsEndpoints()
 {
