@@ -13,7 +13,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    env:
+        Scripts: ./.github/workflows/scripts
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET
