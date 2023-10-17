@@ -42,7 +42,6 @@ jobs:
             name: coverage-artifacts
             path: coveragereport/
 
-
     - name: Calculate Code Coverage Percentage
       run: |
           coverageThreshold=70
