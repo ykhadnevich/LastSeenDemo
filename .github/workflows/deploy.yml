@@ -8,7 +8,10 @@ on:
 jobs:
     build:
         runs-on: ubuntu-latest
-        
+        env:
+            SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+            SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+            VM_IP: ${{ secrets.VM_IP }}
         steps:
             - uses: actions/checkout@v3
             - name: Setup .NET
@@ -29,9 +32,5 @@ jobs:
               run: ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$VM_IP "sudo systemctl stop LastSeenDemo"
             - name: Deploy to VM
               run: scp -o StrictHostKeyChecking=no -r .out $SSH_USERNAME@$VM_IP:/server/LastSeenDemo/.out
-              env:
-                  SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
-                  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-                  VM_IP: ${{ secrets.VM_IP }}
             - name: Start the server
               run: ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$VM_IP "sudo systemctl start LastSeenDemo"
