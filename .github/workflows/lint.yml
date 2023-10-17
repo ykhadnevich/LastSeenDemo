@@ -2,8 +2,7 @@ name: Code Format Check
 
 on:
     pull_request:
-        paths:
-            - '**/*.cs' # Adjust this to match the files you want to check
+        branches: [main]
 
 jobs:
     code-format:
