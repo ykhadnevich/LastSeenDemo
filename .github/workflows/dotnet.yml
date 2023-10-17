@@ -60,10 +60,3 @@ jobs:
           fi
       env:
           COVERAGE_THRESHOLD: $coverageThreshold
-
-    - name: Set PR status
-      if: failure()
-      uses: softprops/action-gh-release@v0
-      with:
-          files: coverage/*
-          token: ${{ secrets.GITHUB_TOKEN }}
