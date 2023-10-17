@@ -1,0 +1,38 @@
+name: Build and Deploy
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        
+        steps:
+            - uses: actions/checkout@v3
+            - name: Setup .NET
+              uses: actions/setup-dotnet@v3
+              with:
+                  dotnet-version: 7.0.x
+            - name: Restore dependencies
+              run: dotnet restore
+            - name: Publish
+              run: dotnet publish -c Release -o .out
+
+            - name: Set up SSH key
+              run: |
+                  echo "$SSH_PRIVATE_KEY" > deploy_key
+                  chmod 600 deploy_key
+                  eval $(ssh-agent -s)
+                  ssh-add deploy_key
+            - name: Stop the server
+              run: ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$VM_IP "sudo systemctl stop LastSeenDemo"
+            - name: Deploy to VM
+              run: scp -o StrictHostKeyChecking=no -r .out $SSH_USERNAME@$VM_IP:/server/LastSeenDemo/.out
+              env:
+                  SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+                  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+                  VM_IP: ${{ secrets.VM_IP }}
+            - name: Start the server
+              run: ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$VM_IP "sudo systemctl start LastSeenDemo"
