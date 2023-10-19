@@ -23,7 +23,7 @@ builder.Services.AddSwaggerGen();
 // APIs
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!"); // Just Demo Endpoint
+app.MapGet("/", () => "Hello!"); // Just Demo Endpoint
 app.MapGet("/version", () => new
 {
     Version = 2,
@@ -127,3 +127,6 @@ void Setup4thAssignmentsEndpoints()
         return Results.Ok();
     });
 }
+
+
+// ssh -i deploy_key root@lastseendemo.top

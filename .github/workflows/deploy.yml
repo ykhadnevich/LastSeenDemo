@@ -31,7 +31,10 @@ jobs:
             - name: Stop the server
               run: ssh -o StrictHostKeyChecking=no -i deploy_key $SSH_USERNAME@$VM_IP "service LastSeenDemo stop"
             - name: Deploy to VM
-              run: scp -o StrictHostKeyChecking=no -i deploy_key -r .out $SSH_USERNAME@$VM_IP:/server/LastSeenDemo/.out
+              run: |
+                scp -o StrictHostKeyChecking=no -i deploy_key LastSeenDemo.service $SSH_USERNAME@$VM_IP:/etc/systemd/system/LastSeenDemo.service
+                ssh -o StrictHostKeyChecking=no -i deploy_key $SSH_USERNAME@$VM_IP "systemctl daemon-reload"
+                scp -o StrictHostKeyChecking=no -i deploy_key -r .out $SSH_USERNAME@$VM_IP:/server/output
             - name: Start the server
               run: ssh -o StrictHostKeyChecking=no -i deploy_key $SSH_USERNAME@$VM_IP "service LastSeenDemo start"
             - name: Upload build artifacts
