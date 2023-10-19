@@ -29,11 +29,11 @@ jobs:
                   eval $(ssh-agent -s)
                   ssh-add deploy_key
             - name: Stop the server
-              run: ssh -o StrictHostKeyChecking=no -i deploy_key $SSH_USERNAME@$VM_IP "service LastSeenApp stop"
+              run: ssh -o StrictHostKeyChecking=no -i deploy_key $SSH_USERNAME@$VM_IP "service LastSeenDemo stop"
             - name: Deploy to VM
               run: scp -o StrictHostKeyChecking=no -i deploy_key -r .out $SSH_USERNAME@$VM_IP:/server/LastSeenDemo/.out
             - name: Start the server
-              run: ssh -o StrictHostKeyChecking=no -i deploy_key $SSH_USERNAME@$VM_IP "service LastSeenApp start"
+              run: ssh -o StrictHostKeyChecking=no -i deploy_key $SSH_USERNAME@$VM_IP "service LastSeenDemo start"
             - name: Upload build artifacts
               uses: actions/upload-artifact@v2
               with:
