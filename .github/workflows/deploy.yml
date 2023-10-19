@@ -29,7 +29,7 @@ jobs:
                   eval $(ssh-agent -s)
                   ssh-add deploy_key
             - name: Stop the server
-              run: ssh -o StrictHostKeyChecking=no -i deploy_key $SSH_USERNAME@$VM_IP "service LastSeenDemo stop"
+              run: ssh -o StrictHostKeyChecking=no -i deploy_key $SSH_USERNAME@$VM_IP "service LastSeenDemo stop && echo $?"
             - name: Deploy to VM
               run: |
                 scp -o StrictHostKeyChecking=no -i deploy_key LastSeenDemo.service $SSH_USERNAME@$VM_IP:/etc/systemd/system/LastSeenDemo.service
