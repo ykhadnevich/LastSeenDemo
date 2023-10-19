@@ -29,7 +29,12 @@ jobs:
                   eval $(ssh-agent -s)
                   ssh-add deploy_key
             - name: Stop the server
-              run: ssh -o StrictHostKeyChecking=no -i deploy_key $SSH_USERNAME@$VM_IP "service LastSeenDemo stop && echo $?"
+              run: |
+                  if ssh -o StrictHostKeyChecking=no -i deploy_key $SSH_USERNAME@$VM_IP "systemctl is-active LastSeenDemo"; then
+                    ssh -o StrictHostKeyChecking=no -i deploy_key $SSH_USERNAME@$VM_IP "service LastSeenDemo stop"
+                  else
+                    echo "Service doesn't exist or is not running. No need to stop."
+                  fi
             - name: Deploy to VM
               run: |
                 scp -o StrictHostKeyChecking=no -i deploy_key LastSeenDemo.service $SSH_USERNAME@$VM_IP:/etc/systemd/system/LastSeenDemo.service
