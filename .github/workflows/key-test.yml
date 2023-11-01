@@ -15,5 +15,6 @@ jobs:
               run: |
                   echo "$SSH_PRIVATE_KEY" > id_rsa
                   chmod 600 id_rsa
+                  eval $(ssh-agent -s)
                   ssh -o StrictHostKeyChecking=no -i id_rsa $SSH_USERNAME@$VM_IP "ls"
             
