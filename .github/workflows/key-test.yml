@@ -14,5 +14,5 @@ jobs:
             - name: Set up SSH key
               run: |
                   echo "$SSH_PRIVATE_KEY" > id_rsa
-                  ssh -o StrictHostKeyChecking=no -i id_rsa $SSH_USERNAME@$VM_IP "dir"
+                  ssh -o StrictHostKeyChecking=no -i id_rsa $SSH_USERNAME@$VM_IP "ls"
             
