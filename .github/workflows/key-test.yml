@@ -9,13 +9,13 @@ jobs:
     build:
         runs-on: ubuntu-latest
         env:
+            SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
             SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
             VM_IP: ${{ secrets.VM_IP }}
-            SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
         steps:
             - name: Set up SSH key
               run: |
                   echo "$SSH_PRIVATE_KEY" > id_rsa
-                  chmod 600 id_rsa
-                  ssh -o StrictHostKeyChecking=no -i id_rsa $SSH_USERNAME@$VM_IP "service LastSeenDemo restart"
+                  ssh -o StrictHostKeyChecking=no -i id_rsa $SSH_USERNAME@$VM_IP "dir"
+            
             
