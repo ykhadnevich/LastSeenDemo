@@ -11,6 +11,7 @@ jobs:
         env:
             SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
             VM_IP: ${{ secrets.VM_IP }}
+            SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
         steps:
             - name: Set up SSH key
               run: |
