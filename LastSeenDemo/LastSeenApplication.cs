@@ -1,6 +1,11 @@
 ﻿namespace LastSeenDemo;
 
-public class LastSeenApplication
+public interface ILastSeenApplication
+{
+    List<string> Show(DateTimeOffset now);
+}
+
+public class LastSeenApplication : ILastSeenApplication
 {
     private readonly UserLoader _userLoader;
     public LastSeenApplication(UserLoader userLoader)

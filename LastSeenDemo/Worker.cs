@@ -1,6 +1,18 @@
 ﻿namespace LastSeenDemo;
 
-public class Worker
+public interface IWorker
+{
+    Dictionary<Guid, List<UserTimeSpan>> Users { get; }
+    List<Guid> OnlineUsers { get; }
+
+    void LoadDataPeriodically();
+
+    void LoadDataIteration();
+
+    void Forget(Guid userId);
+}
+
+public class Worker : IWorker
 {
     private readonly UserLoader _loader;
     private readonly AllUsersTransformer _transformer;
